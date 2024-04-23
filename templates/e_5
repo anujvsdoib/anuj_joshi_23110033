@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 1.e.5</title>
+    <style>
+        h1{
+            text-align: center;
+            display: inline;
+            padding-left: 5%;
+            margin: 0;
+        }
+        .home{
+            position: absolute;
+            display: inline;
+        }
+        .home img{
+            width: 50px;
+            height: 50px;
+        }
+        a{
+            width: 0;
+            height: 0;  
+            display: inline-block;
+        }
+        .header{
+            padding: 20px;
+            margin: 0;
+            align-items: center;
+        }
+        footer{
+            position:sticky;
+            width: 100%; 
+            margin: 0;
+            padding: 0;
+            text-align: center;  
+            background-color: black;
+            color: white;
+        }
+        table, th, td {
+            width: 100%;
+            border: 1px solid black;
+            border-collapse: collapse;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% if e_5_data %}
+        
+            
+        
+        <h1>Data of Donations by the Company {{company}}</h1>
+        
+        <table>
+            <th>Party Name</th>
+            <th>Donations</th>
+        
+        {% for item in e_5_data %}
+        <tr>
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+        </tr>
+        
+        {% endfor %}
+        {% endif %}
+        <tr>
+            <td>TOTAL DONATIONS</td>
+            <td>{{total_denominations}}</td>
+            </tr>
+        </table>
+        {% if parties %}
+        <div id="chart1">
+            <canvas id="companyparty" style="max-height: 400px; max-width: 400;",height="400",width="400"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script type="text/javascript">
+                var parties = JSON.parse('{{ parties | tojson | safe | replace("\'", "\\\'") }}');
+                var total_amount = JSON.parse('{{ total_amount | tojson | safe | replace("\'", "\\\'") }}');
+                console.log(parties);   
+                console.log(total_amount);
+                var cheartelement = document.getElementById('companyparty').getContext('2d');
+                var companyparty = new Chart(cheartelement,{
+                    type: 'bar',
+                    data: {
+                        labels: parties,
+                        datasets: [{
+                            label: 'Total Denominations',
+                            data: total_amount ,
+                            backgroundColor: 'rgba(235, 99, 132, 0.4)',
+                            borderColor: 'rgba(235, 99, 132, 0.4)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            
+            </script>
+            {% endif %}
+        </div>
+
+</body>
+</html>

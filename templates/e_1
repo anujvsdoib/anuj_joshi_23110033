@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h3>Data from table {{ table_name }} for bond number {{ bond_number }}</h3>
+    <table>
+        <th>Sr. No.</th>
+        <th>Refrence No. (URN)</th>
+        <th>Journal Date</th>
+        <th>Date of Purchase</th>
+        <th>Date of Expiry</th>
+        <th>Name of Purchaser</th>
+        <th>Prefix</th>
+        <th>Bond Number</th>
+        <th>Denominations</th>
+        <th>Issue Branch Code</th>
+        <th>Issue Teller</th>
+        <th>Status</th>
+        {% for item in a_2_data %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td>{{ item[4] }}</td>
+                <td>{{ item[5] }}</td>
+                <td>{{ item[6] }}</td>
+                <td>{{ item[7] }}</td>
+                <td>{{ item[8] }}</td>
+                <td>{{ item[9] }}</td>
+                <td>{{ item[10] }}</td>
+                <td>{{ item[11] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <form method="post" action="/e_1">
+        <select name="tablename" id="table_dropdown">
+            <option value="" disabled selected hidden>Choose the name of the table:</option>
+            <option value="d11">Purchase Details</option>
+            <option value="d10">Redemption Details</option>
+        </select>
+        <select name="filter_type" id="column_dropdown">
+            <option value="" disabled selected hidden>Choose a column</option>
+        </select>
+        <input type="text" name="filter_value" placeholder="Enter the value to filter">
+        <input type="submit" value="Filter">
+    </form>
+    <script>
+        document.getElementById("table_dropdown").addEventListener("change", function() {
+            var table_name = this.value;
+            var column_dropdown = document.getElementById("column_dropdown");
+            column_dropdown.innerHTML = '<option value="" disabled selected hidden>Choose a column</option>';
+            if (table_name === "d11") {
+                var columns = ["Reference_No", "Journal_date", "Date_of_Purchase", "Date_of_Expiry", "Name_of_the_Purchaser", "Prefix", "bond_number"," Denominations", "Issue_B_Code", "Issue_Teller", "Status", "year"];
+            } else if (table_name === "d10") {
+                var columns = ["Sr No.", "date_o_e", "name_of_p_party", "Account_No", "Prefix", "bond_number", "Denominations"," PBC", "Pay_Teller"," year"];
+            }
+            columns.forEach(function(column) {
+                var option = document.createElement("option");
+                option.text = column;
+                column_dropdown.add(option);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 1.e.3</title>
+    <style>
+        h1{
+            text-align: center;
+            display: inline;
+            padding-left: 5%;
+            margin: 0;
+        }
+        .home{
+            position: absolute;
+            display: inline;
+        }
+        .home img{
+            width: 50px;
+            height: 50px;
+        }
+        a{
+            width: 0;
+            height: 0;  
+            display: inline-block;
+        }
+        .header{
+            padding: 20px;
+            margin: 0;
+            align-items: center;
+        }
+        footer{
+            position:sticky;
+            width: 100%; 
+            margin: 0;
+            padding: 0;
+            text-align: center;  
+            background-color: black;
+            color: white;
+        }
+        table, th, td {
+            width: 100%;
+            border: 1px solid black;
+            border-collapse: collapse;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% if e_3_data %}
+    
+        </div>
+    
+        <h1>Data of Donations by the Company {{company}}</h1>
+    </div>
+        <table>
+            <th>Bond Number</th>
+            <th>Denominations</th>
+            <th>Year</th>
+        
+        {% for item in e_3_data %}
+        <tr>
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+            <td>{{item[2]}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        </table>
+        {% if years1 %}
+        <div id="chart1">
+            <canvas id="companyyear" ,height="400",width="400"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script type="text/javascript">
+                var year = JSON.parse('{{ years1 | tojson | safe | replace("\'", "\\\'") }}');
+                var amount = JSON.parse('{{ amount1 | tojson | safe | replace("\'", "\\\'") }}');
+                console.log(year);
+                console.log(amount);
+                var cheartelement = document.getElementById('companyyear').getContext('2d');
+                var companyyear = new Chart(cheartelement,{
+                    type: 'bar',
+                    data: {
+                        labels: year,
+                        datasets: [{
+                            label: 'Number of Bonds',
+                            data: amount ,
+                            backgroundColor: 'rgba(251, 99, 132, 0.4)',
+                            borderColor: 'rgba(251, 99, 132, 0.4)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            
+            </script>
+            {% endif %}
+        </div>   
+        
+    
+</body>
+</html>

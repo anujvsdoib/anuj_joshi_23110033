@@ -1,0 +1,74 @@
+<!-- Table for output in a2 -->
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <form method="post" action="/a_2">
+            <select name="tablename" id="dropdown">
+                <option value="" disabled selected hidden>Choose the name of the table:</option>
+                <option value="d11">Purchase Details</option>
+                <option value="d10">Redemption Details</option>
+            </select>
+            <label>Search data by bond number:</label><br>
+            <input name="box" type="text" id="bondnumber">
+            <input id="a_2" type="submit">
+        </form>
+        <br>
+
+
+        <form method="post" action="/e_2">
+            <label>Select Company/Individual </label>
+            <select name="Company" id="'dropdown">
+                <option value="" disabled selected hidden>Choose the name of Individual/Company</option>
+                {% for name in name_of_purchaser %}
+                <option value="{{name[0]}}">{{name[0]}}</option>
+                {% endfor %}
+            </select>
+            <input id="e_2" type="submit">
+        </form>
+        
+        <form method="post" action="/e_3">
+            <label>Select name of the Party:</label>
+            <select name="party" id="dropdown">
+                <option value="" disabled selected hidden>Choose the name of the party</option>
+                {% for name in name_of_party %}
+                <option value="{{name[0]}}">{{name[0]}}</option>
+                {% endfor %}
+            </select>
+            <input id="e_3" type="submit">
+        </form>
+        
+        <form method="post" action="/e_4">
+            <label>Select name of the Party:</label>
+            <select name="party" id="dropdown">
+                <option value="" disabled selected hidden>Choose the name of the party</option>
+                {% for name in name_of_party %}
+                <option value="{{name[0]}}">{{name[0]}}</option>
+                {% endfor %}
+            </select>
+            <input id="e_4" type="submit">
+        </form> 
+        
+        <form method="post" action="/e_5">
+            <label>Select name of the company:</label>
+            <select name="company" id="dropdown">
+                <option value="" disabled selected hidden>Choose the name of the company</option>
+                {% for name in name_of_purchaser %}
+                <option value="{{name[0]}}">{{name[0]}}</option>
+                {% endfor %}
+            </select>
+            <input id="e_5" type="submit">
+        </form> 
+          
+        <form method="post" action="/e_6">
+            <button type="submit" value="Pie Chart" name="Pie Chart">Display Pie Chart</button>
+        </form>
+        
+       
+
+    </body>
+
+</html>

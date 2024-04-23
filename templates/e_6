@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 1.e.6</title>
+    <style>
+        h1{
+            text-align: center;
+            left: 100%;
+            display: inline;
+            padding-left: 30%;
+            margin: 0;
+        }
+        #chart2{
+            margin: 0 auto;
+            text-align: center;
+        }
+        .home{
+            position: absolute;
+            display: inline;
+        }
+        .home img{
+            width: 50px;
+            height: 50px;
+        }
+        a{
+            width: 0;
+            height: 0;  
+            display: inline-block;
+        }
+        .header{
+            padding: 20px;
+            margin: 0;
+            align-items: center;
+        }
+
+        footer{
+            position: fixed;
+            left: 0;
+            bottom:0; 
+            width: 100%; 
+            text-align: center;  
+        }
+
+    </style>
+</head>
+<body>
+
+    
+        <h1>Pie Chart of Total Donations and the Parties</h1>
+    </div>
+    {% if party %}
+        <div id="chart2">
+            <canvas id="partyamount" style="max-height: 400px; max-width: 400;",height="400",width="400"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                var party = JSON.parse('{{ party | tojson | safe | replace("\'", "\\\'") }}');
+                var total_donations = JSON.parse('{{ total_donations | tojson | safe | replace("\'", "\\\'") }}');
+                var cheartelement = document.getElementById('partyamount').getContext('2d');
+                var partyamount = new Chart(cheartelement,{
+                    type: 'pie',
+                    data: {
+                        labels: party,
+                        datasets: [{
+                            label: 'Total Denominations',
+                            data: total_donations ,
+                            backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)', 'rgba(255, 205, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235,1)', 'rgba(255, 99, 132,1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)', 'rgba(255, 40, 145, 0.8)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+            
+            {% endif %}
+        </div>
+       
+
+</body>
+</html>
